@@ -1,0 +1,63 @@
+<div class="flex column">
+    <h1>Liste des consommables</h1>
+    <div class="flex column">
+        <button (click)="toggleAjoutCat()">Add Catégorie</button>
+        <div class="flex row hidden-form" [ngClass]="{ expanded: isDropFormOpen() }">
+            <input type="text" name="" id="">
+            <button (click)="toggleAjoutCat()">valider</button>
+        </div>
+        @for (item of consommablesCat; track $index) {
+            <div class="flex column">
+                <h1> {{ item.nomCat }} </h1>
+                <table>
+                    <tr>
+                        <td class="table-td">Libelé</td>
+                        <td class="table-td">Quantité</td>
+                        <td class="table-td">Unité</td>
+                        <td class="table-td">Action</td>
+                    </tr>
+                    @for (consommable of item.Consommable; track $index) {
+                        <tr>
+                            <td class="table-td"> {{ consommable.libele }} </td>
+                            <td class="table-td"> {{ consommable.quantite }} </td>
+                            <td class="table-td"> {{ consommable.unite }} </td>
+                            <td class="table-td">
+                                <div class="flex row">
+                                    <button>Entrée</button>
+                                    <button>Sortie</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="hidden-input" [ngClass]="{ showned: isOpen(item.id) }">
+                            <input #refLibele type="text" name="" id="" >
+                        </td>
+                        <td class="hidden-input" [ngClass]="{ showned: isOpen(item.id) }">
+                            <input #refQuantite type="number">
+                        </td>
+                        <td class="hidden-input" [ngClass]="{ showned: isOpen(item.id) }">
+                            <input #refUnite type="text" name="" id="">
+                        </td>
+                        <td class="hidden-input" [ngClass]="{ showned: isOpen(item.id) }">
+                            <div class="flex row hidden-input">
+                                <button (click)="checkValue(refLibele.value, refQuantite.value, refUnite.value, item.id)">Valider</button>
+                            </div>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            @if (isOpen(item.id)) {
+                                <button (click)="toogleForm(item.id)">cancel</button>
+                            }
+                            @else {
+                                <button (click)="toogleForm(item.id)">Ajout Consommable</button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+

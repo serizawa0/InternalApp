@@ -1,0 +1,65 @@
+<p>equipement works!</p>
+<h1>Equipements</h1>
+<div class="flex column">
+    <button>Ajout Famille</button>
+    @for (item of familles; track $index) {
+        <div class="flex column">
+            <h1> {{ item.abr }} : {{ item.famName }} </h1>
+            <div class="grid grid-2">
+                @for (cat of item.ArtCat; track $index) {
+                    <div class="flex column">
+                        <h2> {{ cat.abr }}:{{ cat.catName }} </h2>
+                        <table>
+                            <tr>
+                                <td class="table-td">Code</td>
+                                <td class="table-td">Nom technique</td>
+                                <td class="table-td">Quantité</td>
+                                <td class="table-td">Stock</td>
+                                <td class="table-td">Actions</td>
+                            </tr>
+                            @for (art of cat.articles; track $index) {
+                                <tr>
+                                    <td class="table-td"> {{ art.abr }} </td>
+                                    <td class="table-td"> {{ art.artName }} </td>
+                                    <td class="table-td"> {{ art.quantity }} </td>
+                                    <td class="table-td"> {{ art.stock }} </td>
+                                    <td class="table-td">
+                                        <button>Action</button>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
+                                    <input type="text" name="" id="">
+                                </td>
+                                <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
+                                    <input type="text" name="" id="">
+                                </td>
+                                <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
+                                    <input type="number" name="" id="">
+                                </td>
+                                <td>
+
+                                </td>
+                                <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
+                                    <button>valider</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @if (!isArtOpen(cat.id)) {
+                                        <button (click)="toggleArtForm(cat.id)">Add</button>   
+                                    }
+                                    @else {
+                                        <button (click)="toggleArtForm(cat.id)">Cancel</button>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                }
+                <button>Add Category</button>
+            </div>
+        </div>
+    }
+</div>

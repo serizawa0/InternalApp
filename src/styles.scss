@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+.relative{
+    position: relative;
+    display: inline-block;
+}
+
+.flex{
+    display:flex;
+}
+.flex.row{
+    flex-direction: row;
+}
+.flex.column{
+    flex-direction: column;
+}
+
+.grid{
+    display: grid;
+}
+.grid.grid-2{
+    grid-template-columns: 1fr 1fr;
+}
+.grid.grid-3{
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.grid.grid-4{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.table-td{
+    border-bottom: 1px solid #aaa;
+}

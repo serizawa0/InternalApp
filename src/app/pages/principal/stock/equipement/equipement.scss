@@ -1,0 +1,14 @@
+
+
+.hidden-input{
+    overflow: hidden;
+}
+
+.hidden-input *{
+    transform: translateY(-200%);
+    transition: 0.5s ease;
+}
+
+.hidden-input.showned *{
+    transform: translateY(0);
+}
