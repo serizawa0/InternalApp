@@ -1,0 +1,10 @@
+<div class="flex column">
+    <h1>Login</h1>
+    <form [formGroup]="loginForm" (submit)="validate()">
+        <div class="flex column">
+            <input type="text" name="" id="" formControlName="userName" placeholder="Nom d'utilisateur...">
+            <input type="password" name="" id="" formControlName="password" placeholder="Mot de passe ...">
+            <input type="submit" value="Valider" [disabled]="!isValid()">
+        </div>
+    </form>
+</div>

@@ -16,6 +16,6 @@ export class Stock {
     private router:Router
   ){}
   navigate(dest:string){
-    this.router.navigate(['/stock/'+dest])
+    this.router.navigate(['/main/stock/'+dest])
   }
 }

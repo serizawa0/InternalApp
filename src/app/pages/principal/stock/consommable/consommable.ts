@@ -12,6 +12,8 @@ import { NgClass } from '@angular/common';
   styleUrl: './consommable.scss'
 })
 export class Consommable {
+  addCat = signal(false)
+  fadeOut = false
   inputSets = new Set<string>()
   actionSet = new Set<string>()
   consommablesCat:ConsommableCat[] = []
@@ -19,18 +21,42 @@ export class Consommable {
   constructor(
     private lB:Liaison
   ){
+    this.majConsommables()
+  }
+  majConsommables(){
     this.lB.getConsommables().subscribe(
       data => {
         this.consommablesCat = data
       }
     )
   }
-  toggleAjoutCat(){
-    this.isDropFormOpen.update(v => !v)
+
+  copie(text:string){
+    const t = ''+text 
+    navigator.clipboard.writeText(t).then(
+      () => {
+        console.log('texte copié')
+      }
+    ).catch(
+      err => {
+        console.log('Error', err)
+      }
+    )
   }
+
+  toggleAddCat(){
+    this.addCat.update(
+      (addCat) => !addCat
+    )
+  }
+
   checkValue(libele:string, quantite:string, unite:string, id:string){
-    console.log(libele+' '+quantite+' '+unite+' '+id)
+    const hasEmpty = [libele, quantite, unite].some(str =>  str.trim() ==='')
+    if(!hasEmpty){
+      this.addConsommable(id, libele, quantite, unite)
+    }
   }
+  
   toogleForm(id:string){
     if(!this.inputSets.has(id)){
       this.inputSets.clear()
@@ -55,5 +81,44 @@ export class Consommable {
 
   isActionOpen(id:string){
     return this.actionSet.has(id)
+  }
+
+  //Consommable
+  addConsommable(consommableCatId:string, libele:string, quantite:string, unite:string){
+    const q = parseInt(quantite)
+    this.lB.addConsommable(consommableCatId, libele, q, unite).subscribe(
+      data => {
+        this.majConsommables()
+      }
+    ) 
+  }
+  deleteConsommable(id:string){
+    this.lB.deleteConsommable(id).subscribe(
+      data => {
+        this.majConsommables()
+      }
+    )
+  }
+
+  //ConsommableCat
+  checkInput(nomCat:string){
+    const isEmpty = nomCat.trim() === ''
+    if(!isEmpty)
+      this.addConsommableCat(nomCat)
+  }
+
+  addConsommableCat(nomCat:string){
+    this.lB.addConsommableCat(nomCat).subscribe(
+      data => {
+        this.majConsommables()
+      }
+    )
+  }
+  deleteConsommableCat(id:string){
+    this.lB.deleteConsommableCat(id).subscribe(
+      data => {
+        this.majConsommables()
+      }
+    )
   }
 }

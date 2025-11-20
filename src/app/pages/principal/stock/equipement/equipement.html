@@ -1,48 +1,78 @@
 <p>equipement works!</p>
 <h1>Equipements</h1>
 <div class="flex column">
-    <button>Ajout Famille</button>
+    <div class="fade-container">
+        @if (!showFamillyAdd) {
+            <button class="fade" [class.fade-out]="fadeOut" [class.fade-in]="!fadeOut" (click)="toggleAjoutFamille()">Ajout Famille</button>
+        }
+        @else {
+            <!-- <input type="text" name="" id="" class="fade fade-in"> -->
+            <div class="fade fade-in flex row">
+                <input #abr type="text" name="" id="" placeholder="Abréviation...">
+                <input #famName type="text" name="" id="" placeholder="nom Famile d'équipements...">
+                <button (click)="addFamily(abr.value, famName.value)">Valider</button>
+                <button (click)="toggleAjoutFamille()">Annuler</button>
+            </div>
+        }
+    </div>
     @for (item of familles; track $index) {
         <div class="flex column">
-            <h1> {{ item.abr }} : {{ item.famName }} </h1>
+            <div class="flex row">
+                <h1> {{ item.abr }} : {{ item.famName }} </h1>
+                <button (click)="dellFamily(item.id)">Delete Family</button>
+            </div>
             <div class="grid grid-2">
                 @for (cat of item.ArtCat; track $index) {
                     <div class="flex column">
-                        <h2> {{ cat.abr }}:{{ cat.catName }} </h2>
+                        <div class="flex row space-between">
+                            <h2> {{ cat.abr }}:{{ cat.catName }} </h2>
+                            <button (click)="dellArtCat(cat.id)">Delete</button>
+                        </div>
                         <table>
                             <tr>
                                 <td class="table-td">Code</td>
                                 <td class="table-td">Nom technique</td>
                                 <td class="table-td">Quantité</td>
                                 <td class="table-td">Stock</td>
+                                <td class="table-td">Unité</td>
                                 <td class="table-td">Actions</td>
                             </tr>
-                            @for (art of cat.articles; track $index) {
+                            @for (art of cat.Article; track $index) {
                                 <tr>
                                     <td class="table-td"> {{ art.abr }} </td>
                                     <td class="table-td"> {{ art.artName }} </td>
-                                    <td class="table-td"> {{ art.quantity }} </td>
+                                    <td class="table-td"> {{ art.quantite }} </td>
                                     <td class="table-td"> {{ art.stock }} </td>
+                                    <td class="table-td"> {{ art.unite }} </td>
                                     <td class="table-td">
-                                        <button>Action</button>
+                                        <div class="flex ro">
+                                            <button (click)="delArt(art.id)">delete</button>
+                                        </div>
                                     </td>
                                 </tr>
                             }
                             <tr>
                                 <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
-                                    <input type="text" name="" id="">
+                                    <input #abr type="text" name="" id="">
                                 </td>
                                 <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
-                                    <input type="text" name="" id="">
+                                    <input #artName type="text" name="" id="">
                                 </td>
                                 <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
-                                    <input type="number" name="" id="">
+                                    <input #quantity type="number" name="" id="">
                                 </td>
                                 <td>
 
                                 </td>
                                 <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
-                                    <button>valider</button>
+                                    <select name="" id=""#unite>
+                                        <option value="pcs">pcs</option>
+                                        <option value="paquet">paquet</option>
+                                        <option value="carton">carton</option>
+                                    </select>
+                                </td>
+                                <td class="hidden-input" [ngClass]="{ showned: isArtOpen(cat.id) }">
+                                    <button (click)="addArt(cat, abr.value, artName.value, quantity.value, unite.value)" >valider</button>
                                 </td>
                             </tr>
                             <tr>
@@ -58,7 +88,21 @@
                         </table>
                     </div>
                 }
-                <button>Add Category</button>
+                <div class="case-ajout relative">
+                    @if (!isAddCat(item.id)) {
+                        <button (click)="toggleAddCat(item.id)" animate.enter="enter-animation" animate.leave="leave-animation">Add Category</button>
+                    }
+                    @else {
+                        <div class="flex column absolute-top" animate.enter="enter-animation" animate.leave="leave-animation">
+                            <input #abr type="text" name="" id="" placeholder="Abréviation...">
+                            <input #catName type="text" name="" id="" placeholder="Nom Catégorie...">
+                            <div class="flex row">
+                                <button (click)="addArtCat(item.id, abr.value, catName.value)">Valider</button>
+                                <button (click)="toggleAddCat(item.id)">Annuler</button>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     }

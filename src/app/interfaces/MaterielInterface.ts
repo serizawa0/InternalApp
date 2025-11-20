@@ -9,7 +9,7 @@ export interface ArtCat{
     id:string
     catName:string
     abr:string
-    articles:Article[]
+    Article:Article[]
 }
 
 export interface Article{
@@ -18,7 +18,7 @@ export interface Article{
     abr:string
     unite:string
     stock:number
-    quantity:number
+    quantite:number
 }
 
 export interface ConsommableCat{

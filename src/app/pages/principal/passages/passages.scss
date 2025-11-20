@@ -1,0 +1,30 @@
+.sortie{
+    border:1px solid red;
+    border-radius: 0.25em;
+}
+
+.selectType{
+    width:100%;
+    border:none;
+}
+
+.survole{
+    background: rgba($color: #000000, $alpha: 1.0);
+}
+.survole *{
+    color:#fff;
+}
+
+.my-table tr{
+    cursor: pointer;
+    // transition:0.05s;
+}
+
+.my-table tr:hover{
+    background: rgba($color: #555, $alpha: 1.0);
+}
+
+.my-table tr:hover *{
+    background: rgba($color: #555, $alpha: 1.0);
+    color:#fff;
+}
