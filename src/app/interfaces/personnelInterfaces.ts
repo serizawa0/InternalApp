@@ -23,10 +23,18 @@ export interface User{
     post:string
     depId:string
     email:string
+    avatarFile:string
+    Departement:Departement
 }
 
 export interface Categorie{
     id:string
     cat:string
     Workers:Worker[]
+}
+
+export interface Departement{
+    id:string
+    depName:string
+    User?:User[]
 }

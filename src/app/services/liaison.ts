@@ -14,7 +14,14 @@ export class Liaison {
   ){}
   //User
   login(userName:string, password:string){
-    return this.http.post<{data:string|User}>(this.URL+'login', { userName, password })
+    return this.http.post<{message:string, user:User|null, token:string|null}>(this.URL+'login', { userName, password })
+  }
+  logOut(value:string){
+    return this.http.post<{message:string}>(this.URL+'logout', { value })
+  }
+
+  checkToken(value:string){
+    return this.http.post<{message:string, user:User|null, token:string|null}>(this.URL+'checkToken', { value })
   }
 
 

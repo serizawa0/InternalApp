@@ -1,6 +1,16 @@
-<div class="flex row gap-05">
-    <h1 (click)="navigateTo('main/stock')">Stock</h1>
-    <h1 (click)="navigateTo('main/messages')">Messages</h1>
-    <h1 (click)="navigateTo('main/projects')">Projects</h1>
-    <h1 (click)="navigateTo('main/passages')">Passages</h1>
+
+<div class="flex column">
+    <div class="flex row flex-end">
+        <img [src]="'http://192.168.1.175:3600/images/'+currentUser.avatarFile" alt="" class="avatar" >
+        <h1>{{ currentUser.userName }}</h1>
+        <p>{{ currentUser.email }}</p>
+    </div>
+    <p><strong>{{ currentUser.Departement.depName }}</strong>{{ currentUser.post }}</p>
+    <div class="flex row gap-05">
+        <h1 (click)="navigateTo('main/stock')">Stock</h1>
+        <h1 (click)="navigateTo('main/messages')">Messages</h1>
+        <h1 (click)="navigateTo('main/projects')">Projects</h1>
+        <h1 (click)="navigateTo('main/passages')">Passages</h1>
+        <h1 (click)="logOut()">Log Out</h1>
+    </div>
 </div>
